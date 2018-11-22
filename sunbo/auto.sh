@@ -150,7 +150,7 @@ case "$num" in
 		read domain
 		echo "启动端口"
 		read port
-		/usr/local/ngrok/bin/ngrokd -domain=$domain -httpAddr=":$port"
+		/usr/local/ngrok/bin/ngrokd -domain=$domain -httpAddr=":$port" > /dev/null 2>&1
 	;;
 	[9] )
 		echo "输入启动域名"

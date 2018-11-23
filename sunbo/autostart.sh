@@ -1,5 +1,8 @@
 #!/bin/bash
 
+#http://blog.51cto.com/12173069/2120166
+# 没做完
+
 basepath='/home/lee/ngrok'
 
 ngrok_auto() {

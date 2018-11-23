@@ -12,7 +12,7 @@ GOARCH=`go env | grep GOARCH | awk -F\" '{print $2}'`
 #ngrok安装目录
 NGROKPATH='/usr/local/ngrok'
 
-echo '系统：$GOOS,版本：$GOARCH'
+echo `系统：$GOOS,版本：$GOARCH`
 
 install_yilai(){
 	yum -y install zlib-devel openssl-devel perl hg cpio expat-devel gettext-devel curl curl-devel perl-ExtUtils-MakeMaker hg wget gcc gcc-c++ unzip

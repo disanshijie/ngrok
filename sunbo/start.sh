@@ -7,7 +7,7 @@ httpAddr=80
 
 ngrok_start() {
     screen -S keepNgrok
-    sudo /usr/local/ngrok/bin/ngrokd -domain=$domain -httpAddr=":$httpAddr"
+    /usr/local/ngrok/bin/ngrokd -domain=$domain -httpAddr=":$httpAddr"
 }
 
 ngrok_stop() {

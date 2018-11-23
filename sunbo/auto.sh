@@ -9,7 +9,10 @@
 SELFPATH=$(cd "$(dirname "$0")"; pwd)
 GOOS=`go env | grep GOOS | awk -F\" '{print $2}'`
 GOARCH=`go env | grep GOARCH | awk -F\" '{print $2}'`
-echo '系统：${GOOS},版本：${GOARCH}'
+#ngrok安装目录
+NGROKPATH='/usr/local/ngrok'
+
+echo '系统：$GOOS,版本：$GOARCH'
 
 install_yilai(){
 	yum -y install zlib-devel openssl-devel perl hg cpio expat-devel gettext-devel curl curl-devel perl-ExtUtils-MakeMaker hg wget gcc gcc-c++ unzip
@@ -28,6 +31,16 @@ install_go(){
 uninstall_go(){
 	yum uninstall golang
 }
+# 安装screen
+install_screen(){
+	yum install -y screen
+}
+# 卸载screen
+uninstall_screen(){
+	yum uninstall screen
+}
+
+
 # 安装ngrok
 install_ngrok(){
 
@@ -38,7 +51,7 @@ install_ngrok(){
     read DOMAIN
 #	export GOPATH=/usr/local/ngrok/
 	export NGROK_DOMAIN=$DOMAIN
-	cd /usr/local/ngrok
+	cd $NGROKPATH
 	openssl genrsa -out rootCA.key 2048
 	openssl req -x509 -new -nodes -key rootCA.key -subj "/CN=$NGROK_DOMAIN" -days 5000 -out rootCA.pem
 	openssl genrsa -out server.key 2048
@@ -48,19 +61,21 @@ install_ngrok(){
 	cp server.crt assets/server/tls/snakeoil.crt
 	cp server.key assets/server/tls/snakeoil.key
 	# 编译不同平台的服务端
-	cd /usr/local/ngrok
+	cd $NGROKPATH
 	GOOS=$GOOS GOARCH=$GOARCH make release-server
     #启动
+	#wget -N --no-check-certificate https://raw.githubusercontent.com/disanshijie/ngrok/master/sunbo/start.sh
+	#chmod +x $NGROKPATH/sunbo/start.sh
 	#/usr/local/ngrok/bin/ngrokd -domain=$NGROK_DOMAIN -httpAddr=":80"
 }
 # 卸载ngrok
 uninstall_ngrok(){
-	rm -rf /usr/local/ngrok
+	rm -rf $NGROKPATH
 }
 
 # 编译客户端
 compile_client(){
-	cd /usr/local/ngrok/
+	cd $NGROKPATH
 	GOOS=$1 GOARCH=$2 make release-client
 }
 
@@ -124,6 +139,7 @@ case "$num" in
 		install_yilai
 		install_git
 		install_go
+		install_screen
 		install_ngrok
 	;;
 	[2] )

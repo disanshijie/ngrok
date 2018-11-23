@@ -31,21 +31,12 @@ install_go(){
 uninstall_go(){
 	yum uninstall golang
 }
-# 安装screen
-install_screen(){
-	yum install -y screen
-}
-# 卸载screen
-uninstall_screen(){
-	yum uninstall screen
-}
-
 
 # 安装ngrok
 install_ngrok(){
 
 	uninstall_ngrok
-    git clone https://github.com/inconshreveable/ngrok.git /usr/local/ngrok
+    git clone https://github.com/inconshreveable/ngrok.git $NGROKPATH
 
     echo '请输入一个域名'
     read DOMAIN
@@ -57,12 +48,15 @@ install_ngrok(){
 	openssl genrsa -out server.key 2048
 	openssl req -new -key server.key -subj "/CN=$NGROK_DOMAIN" -out server.csr
 	openssl x509 -req -in server.csr -CA rootCA.pem -CAkey rootCA.key -CAcreateserial -out server.crt -days 5000
-	cp rootCA.pem assets/client/tls/ngrokroot.crt
-	cp server.crt assets/server/tls/snakeoil.crt
-	cp server.key assets/server/tls/snakeoil.key
+
+	\cp -f rootCA.pem assets/client/tls/ngrokroot.crt
+	\cp -f server.crt assets/server/tls/snakeoil.crt
+	\cp -f server.key assets/server/tls/snakeoil.key
+
 	# 编译不同平台的服务端
 	cd $NGROKPATH
-	GOOS=$GOOS GOARCH=$GOARCH make release-server
+	#GOOS=$GOOS GOARCH=$GOARCH make release-server
+	GOOS=linux GOARCH=amd64 make release-server
     #启动
 	#wget -N --no-check-certificate https://raw.githubusercontent.com/disanshijie/ngrok/master/sunbo/start.sh
 	#chmod +x $NGROKPATH/sunbo/start.sh
@@ -70,6 +64,7 @@ install_ngrok(){
 }
 # 卸载ngrok
 uninstall_ngrok(){
+	echo "卸载ngrok"
 	rm -rf $NGROKPATH
 }
 
@@ -130,6 +125,7 @@ echo "4、安装go环境"
 echo "5、安装ngrok"
 echo "6、生成客户端"
 echo "7、卸载"
+echo "a、卸载ngrok"
 echo "8、启动服务"
 echo "9、查看配置文件"
 echo "------------------------"
@@ -159,6 +155,9 @@ case "$num" in
 	;;
 	[7] )
 		uninstall_go
+		uninstall_ngrok
+	;;
+	[a]] )
 		uninstall_ngrok
 	;;
 	[8] )

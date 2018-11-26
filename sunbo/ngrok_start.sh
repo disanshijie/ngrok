@@ -20,12 +20,13 @@ ngrok_start() {
 
     if [[ $port -eq '0' ]]; then
         #默认httpsAddr443，tunnelAddr4443
-        echo "默认：80 443 4443"
+        echo "默认：domain httpAddr httpsAddr tunnelAddr"
+        echo "默认：$domain   80      443       4443"
         /usr/local/ngrok/bin/ngrokd -domain=$domain -log="/var/log/ngrok/ngrok.log" 1> /dev/null 2> /var/log/ngrok/ngrok.log &
         #echo $! > /var/run/ngrok.pid
     else
         #自定义
-        echo "自定义：80 443 4443"
+        echo "自定义：domain=$domain httpAddr=$httpAddr httpsAddr=$httpsAddr tunnelAddr=$tunnelAddr"
        # cmd=`/usr/local/ngrok/bin/ngrokd -domain=$domain -httpAddr=":$httpAddr" -httpsAddr=":$httpsAddr" -tunnelAddr=":$tunnelAddr"`
         #cmd2=`/usr/local/ngrok/bin/ngrokd -domain=$domain -httpAddr=":$httpAddr" -httpsAddr=":5555" -tunnelAddr=":555"`
        # $cmd -log="/var/log/ngrok/ngrok.log" 1> /dev/null 2> /var/log/ngrok/ngrok.log &

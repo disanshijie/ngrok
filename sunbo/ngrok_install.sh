@@ -136,6 +136,7 @@ case "$num" in
 		install_git
 		install_go
 		install_ngrok
+		client
 	;;
 	[2] )
 		install_yilai
@@ -148,6 +149,7 @@ case "$num" in
 	;;
 	[5] )
 		install_ngrok
+		client
 	;;
 	[6] )
 		client

@@ -6,14 +6,34 @@
     本目录下自己写的内容
     auto.sh Linux上搭建脚本，只适用与centos
 
-##### 使用
+##### 服务器使用
 
-```
+1. 下载脚本
+
+    ```
     wget -N --no-check-certificate https://raw.githubusercontent.com/disanshijie/ngrok/master/sunbo/ngrok_install.sh && chmod +x ngrok_install.sh && bash ngrok_install.sh
-```
+    ```
+
+2. 安装git，go，ngrok（一般就可以了）
+    ```
+    ./ngrok_install.sh
+    ```
+3. 运行ngrok
+   ```
+
+   ```
+4. 生成客户端
+5. 下载客户端
+   
+##### 客户端使用
+
+
+
+ 
+
     第二次启动
 ```
-    ./ngrok_install.sh
+    
     或者eg:
     /usr/local/ngrok/bin/ngrokd -domain='wx.sjc.science' -httpAddr=":80" > /dev/null 2>&1
 

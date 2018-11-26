@@ -30,6 +30,7 @@ install_go(){
 # 卸载go
 uninstall_go(){
 	yum uninstall golang
+	echo "卸载go完成"
 }
 
 # 安装ngrok
@@ -64,8 +65,8 @@ install_ngrok(){
 }
 # 卸载ngrok
 uninstall_ngrok(){
-	echo "卸载ngrok"
 	rm -rf $NGROKPATH
+	echo "卸载ngrok完成"
 }
 
 # 编译客户端
@@ -132,10 +133,8 @@ echo "------------------------"
 read num
 case "$num" in
 	[1] )
-		install_yilai
 		install_git
 		install_go
-		install_screen
 		install_ngrok
 	;;
 	[2] )

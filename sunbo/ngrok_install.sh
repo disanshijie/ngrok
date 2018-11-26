@@ -157,7 +157,7 @@ case "$num" in
 		uninstall_go
 		uninstall_ngrok
 	;;
-	[a]] )
+	[a] )
 		uninstall_ngrok
 	;;
 	[8] )

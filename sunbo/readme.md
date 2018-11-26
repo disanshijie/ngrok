@@ -221,6 +221,13 @@
 
     ```
 
+### 补充记录
+
+    停止服务
+    ```
+    netstat -tlunp|grep ngrok
+    kill [pid]
+    ```
 
 
 参考：

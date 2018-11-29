@@ -37,7 +37,7 @@ uninstall_go(){
 install_ngrok(){
 
 	uninstall_ngrok
-    git clone https://github.com/inconshreveable/ngrok.git $NGROKPATH
+    git clone https://github.com/disanshijie/ngrok.git $NGROKPATH
 
     echo '请输入一个域名'
     read DOMAIN
@@ -113,6 +113,14 @@ client(){
 
 }
 
+#下载启动文件
+start_backgroud() {
+	cd $NGROKPATH/sunbo
+	chmod +x ngrok_install.sh
+	#启动
+	bash ngrok_install.sh $1 $2
+}
+
 
 echo "请输入下面数字进行选择"
 echo "#############################################"
@@ -162,11 +170,11 @@ case "$num" in
 		uninstall_ngrok
 	;;
 	[8] )
-		echo "输入启动域名"
+		echo "输入启动域名eg：-d wx.sjc.science"
 		read domain
-		echo "启动端口"
+		echo "启动端口,默认回车就行，eg: -p 80 443 4443"
 		read port
-		/usr/local/ngrok/bin/ngrokd -domain=$domain -httpAddr=":$port" > /dev/null 2>&1
+		start_backgroud $domain $port
 	;;
 	[9] )
 		echo "输入启动域名"

@@ -1,10 +1,11 @@
 
-## TODO http修改，完整步骤，启动服务， 开机启动
+## TODO 开机启动
 
 
-### nggork 脚本 
+### nggork 脚本 声明
     本目录下自己写的内容
-    auto.sh Linux上搭建脚本，只适用与centos
+    auto.sh Linux上搭建脚本，只适用与centos，
+    阿里云 centos7 6亲测可行
 
 ##### 服务器使用
 
@@ -20,20 +21,33 @@
     1
     报错可以试试2
     ```
-3. 运行ngrok
+3. 后台运行ngrok
+
    ```
+    ./ngrok_install.sh
+    8
+
+    或者 (无法后台运行)
+    /usr/local/ngrok/bin/ngrokd -domain='wx.sjc.science' -httpAddr=":80" -httpsAddr=":443" -tunnelAddr=":4443"
 
    ```
 
-4. 下载客户端
+    浏览器输入 域名(eg：ddd.wx.sjc.science)出现
+    ```
+    Tunnel test.wx.sjc.science not found
+    ```
+
+##### 客户端使用
+1. 下载客户端
     位置
    ```
    /usr/local/ngrok/bin/windows_amd64
    
    ```
-5. 客户端配置
+2. 客户端配置
     1. 配置文件
-    简单eg
+    
+    简单例子: 
     ngrok.cfg
     ```
     server_addr: "wx.sjc.science:4443"
@@ -46,22 +60,11 @@
     ```
     用node开个本地80端口
     浏览器访问 dfd.wx.sjc.science
+
     --------------------------------------------------
 
 
-##### 客户端使用
-
-
-    第二次启动
-```
-    
-    或者eg:
-    /usr/local/ngrok/bin/ngrokd -domain='wx.sjc.science' -httpAddr=":80" > /dev/null 2>&1
-
-```
-
-
-### 其他
+##### 其他
     sunnyos目录是 作者sunnyos写的一个脚本，不好用，仅作为参考
 
 
@@ -85,12 +88,12 @@
 
 二. 参数说明：
 
-    ```
+```
     #-domain 访问ngrok是所设置的服务地址生成证书时那个
     #-httpAddr http协议端口 默认为80
     #-httpsAddr https协议端口 默认为443 （可配置https证书）
     #-tunnelAddr 通道端口 默认4443
-    ```
+```
 
 三. 域名说明
 1. 我的主域名为sjc.science
@@ -106,6 +109,7 @@
 
 
 四. 客户端配置文件
+
     https://blog.csdn.net/lipc_/article/details/52012642
     client:表示转发http到本机8080，同时要求验证，
     ssh:表示支持远程访问，
@@ -118,7 +122,7 @@
     authtoken: 用于设置登录ngrok的授权码，可以在ngrok首页的dashboard中查看到。
     inspect_addr: 用于设置监听ip，比如设置为 0.0.0.0:8888 意味着监听本机所有ip的 8888 端口上
 
-1. eg
+1. eg（未测试）
     ngrok.cfg
     ```
     server_addr: "wx.sjc.science:4443"
@@ -138,7 +142,7 @@
     ngrok -config=ngrok.cfg start ddd
     ```
 
-2. eg
+2. eg（未测试）
     ngrok.cfg
     ```
     server_addr: "wx.sjc.science:4443"
